@@ -8,7 +8,7 @@ public class Main {
     void main(String 22) {
 
         public static void main (String[]main){
-            System.out.println (Arrays.toString (new String [] {"Hello","Caralhos"}));
+            System.out.println (Arrays.toStrfing (new String [] {"Hello","Caralhos"}));
         }
     }
 }
