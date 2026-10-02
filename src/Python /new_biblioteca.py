@@ -41,6 +41,22 @@ class Dicionario:
     #listar os livros cadastrados, todos
     def listar_livros(self):
         return self.livros
+
+    def apagar_livro(self, titulo, autor):
+     for i, livro in enumerate(self.livros):
+        if livro['titulo'].lower() == titulo.lower() and livro['autor'].lower() == autor.lower():
+            # Mostra antes de apagar
+            print(f"\nVai apagar: {livro['titulo']} — {livro['autor']} ({livro['genero']}) x{livro['quantidade']}")
+            confirmar = input("Confirmar? (s/n): ")
+            if confirmar.lower() == 's':
+                self.livros.pop(i)
+                with open(ARQUIVO, 'w', encoding='utf-8') as f:
+                    js.dump(self.livros, f, ensure_ascii=False, indent=4)
+                print("✓ Removido.")
+            else:
+                print("Cancelado.")
+            return
+     print("Não encontrado.")   
     
 # buscar livros por título, todos os livros que tiverem o titulo igual ao que 
 # foi digitado, independente de maiusculas ou minusculas
@@ -49,6 +65,7 @@ class Dicionario:
        
 # gerar grafico com a quantidade de livros por genero? categoria?
 # tem realmente que fazer em matplotlib? 
+
 def grafico():
     with open(ARQUIVO, 'r', encoding='utf-8') as f:
         livros = js.load(f)
@@ -84,6 +101,8 @@ def grafico():
     # plt.pie(contagem.values(), labels=contagem.keys(), autopct='%1.0f%%')
     # plt.title('Livros por Gênero')
     # plt.show()
+# isso e para limpar o .json, caso queira apagar todos os livros cadastrados, 
+# e com isso, apagar o arquivo .json tambem
 
 #aqui onde funciona tudo, a interfaçe com o usuario, o menu, e as opções de cadastrar, listar e buscar livros
 def main():
@@ -94,8 +113,9 @@ def main():
         print("1. Cadastrar livro")
         print("2. Listar livros")
         print("3. Buscar por título")
-        print("4. Gerar gráfico de quantidade por livro")
-        print("5. Sair")
+        print("4. Gerar gráfico de quantidade por gênero")
+        print("5. Apagar livro")
+        print("6. Sair")
         opcao = input("Escolha: ")
 
         if opcao == "1" or opcao == "Cadastrar livro".lower() or opcao == "cadastrar":
@@ -113,7 +133,7 @@ def main():
                       print("Digite um número inteiro (ex: 5).")
         
             #aqui manda para o .json o livro cadastrado, e salva no mesmo
-            cadastrar = cadastrar_livro(título, Autor, Gênero, quantidade)
+            cadastrar = cadastrar_livro(titulo, autor, genero, quantidade)
             livro.adicionar_livro(cadastrar)
             print("✓ Salvo!")
 
@@ -136,11 +156,16 @@ def main():
                 # print(f"Encontrado: {resultado[0]}")
             else:
                 print("Não encontrado.")
-        #o grafico mostra a quantidade de livros por titulo, mas poderia ser por genero, ou por autor, ou por quantidade, ou por qualquer outra coisa que seja relevante para o usuario
+        #gera o grafico de quantidade de livros por genero, se nao tiver nenhum livro cadastrado, mostra que nao tem nenhum livro para graficar
         elif opcao == "4":
             grafico()
 
-        elif opcao == "5" or opcao == "Sair".lower() or opcao == "sair":
+        elif opcao == "5":
+            titulo = input("Título: ")
+            autor = input("Autor: ")
+            livro.apagar_livro(titulo, autor)
+
+        elif opcao == "6" or opcao == "Sair".lower() or opcao == "sair":
             print("Até!")
             break
 
