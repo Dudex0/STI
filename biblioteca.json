@@ -1,0 +1,26 @@
+[
+    {
+        "titulo": "meu primeiro livro",
+        "autor": "Eduardo",
+        "genero": "Python",
+        "quantidade": 2
+    },
+    {
+        "titulo": "meu primeiro livro",
+        "autor": "Dudex",
+        "genero": "Python",
+        "quantidade": 2
+    },
+    {
+        "titulo": "meu segundo livro",
+        "autor": "eduardo",
+        "genero": "fisica",
+        "quantidade": 2
+    },
+    {
+        "titulo": "meu primeiro livro",
+        "autor": "duda",
+        "genero": "nao sie",
+        "quantidade": 2
+    }
+]
